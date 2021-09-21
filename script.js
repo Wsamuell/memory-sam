@@ -18,14 +18,13 @@ const shuffle = (array) => {
 const newGame = () => {
     shuffle(emoji)
 for (let i=0; i < emoji.length; i++) {
-    const eachEmoji = document.createTextNode(emoji[i]);
     const newDiv = document.createElement('div');
-    newDiv.setAttribute('class', 'grid-item');
+    const eachEmoji = document.createTextNode(emoji[i]);
     const check =newDiv.appendChild(eachEmoji)
+    newDiv.setAttribute('class', 'grid-item');
     console.log(check)
     // document.insertBefore(check)
-    // console.log(eachEmoji);
-    // return check
+    document.querySelector('.grid-container').appendChild(check);
 }
 }
 newGame()
