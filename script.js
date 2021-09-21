@@ -1,6 +1,7 @@
 const emoji = ['😡', '❤️', '👌', '🙈', '😭', '🎶', '👀', '😇', '🤬', '🤯', '😶‍🌫️', '😵‍💫', '🤢', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '👀', '🧛🏿', '🧞', '🧚‍♂️', '🕺', '😡', '❤️', '👌', '🙈', '😭', '🎶', '👀', '😇', '🤬', '🤯', '😶‍🌫️', '😵‍💫', '🤢', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '👀', '🧛🏿', '🧞', '🧚‍♂️', '🕺']
 
 
+
 const shuffle = (array) => {
     let newLength = array.length, availableEmoji, currentEmoji
 
@@ -16,15 +17,19 @@ const shuffle = (array) => {
 
 
 const newGame = () => {
-    shuffle(emoji)
+shuffle(emoji)
 for (let i=0; i < emoji.length; i++) {
     const newDiv = document.createElement('div');
     const eachEmoji = document.createTextNode(emoji[i]);
-    const check =newDiv.appendChild(eachEmoji)
+    newDiv.appendChild(eachEmoji)
     newDiv.setAttribute('class', 'grid-item');
-    console.log(check)
-    // document.insertBefore(check)
-    document.querySelector('.grid-container').appendChild(check);
+    document.querySelector('.grid-container').appendChild(newDiv);
+    
 }
 }
 newGame()
+document.addEventListener('click', function() {
+    const click = document.querySelectorAll('grid-item').textContent
+    console.log(click);
+
+})
