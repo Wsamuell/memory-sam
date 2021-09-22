@@ -19,10 +19,13 @@ body {
     opacity: 0.8;
     padding: 10px;
     font-size: 90px;
+    /* color: transparent; */
 }
 .current{
     background-color:#FFADAD;
     animation: stretch 1.5s ease-in-out 0s infinite alternate none;
+    color: unset;
+
 }
 .grid-item:hover{
     opacity: 1;
@@ -31,10 +34,13 @@ body {
 }
 .match{
     opacity: 0.1;
+    pointer-events: none;
+    color: unset;
 }
 .match:hover{
     opacity: 0.1;
     transform: scale(1);
+    pointer-events: none;
     
 }
 @keyframes stretch {

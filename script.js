@@ -1,6 +1,7 @@
-const emoji = ['❤️', '🙈', '😭', '🎶', '🤬', '🤯', '😶‍🌫️', '🤢', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️', '🕺', '❤️', '🙈', '😭', '🎶', '👀', '🤬', '🤯', '😶‍🌫️', '🤢', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '👀', '🧛🏿', '🧞', '🧚‍♂️', '🕺']
+const emoji = ['❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️', '❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️']
 
 const pointsEl = document.getElementById('pointsEl')
+
 
 let points = 0;
 
@@ -24,9 +25,6 @@ const newGame = () => {
     for (let i=0; i < emoji.length; i++) {
         const newDiv = document.createElement('div');
         newDiv.textContent = emoji[i]
-        // console.log(emoji.indexOf(emoji[i]))
-        // console.log(newDiv.setAttribute('class', `item-${emoji.indexOf(emoji[i])}`));
-        // document.querySelector('.grid-item').classList.add(`item-${emoji.indexOf(emoji[i])}`);
         newDiv.setAttribute('class', 'grid-item');
         document.querySelector('.grid-container').appendChild(newDiv);
         newDiv.addEventListener('click', function() {
@@ -35,29 +33,36 @@ const newGame = () => {
 
 
             if(current.length === 2) {
-
-                if(current[0].textContent === current[1].textContent) {
-                    current[0].classList.add('match')
-                    current[1].classList.add('match')
-                    current[1].classList.remove('current')
-                    current[0].classList.remove('current')
-                    points += 7;
-                    pointsEl.textContent = points
-                    console.log(points)
-                }else{
-                    console.log('cover me please!');
+                const rmCurrent = () => {
                     current[1].classList.remove('current')
                     current[0].classList.remove('current')
                 }
+                if(current[0].textContent === current[1].textContent) {
+                    current[0].classList.add('match')
+                    current[1].classList.add('match')
+                    const matched = document.querySelector('.match')
+                    setTimeout(rmCurrent, 1000)
+                    points += 7;
+                    pointsEl.textContent = points
+                    // matched.length === emoji.length ? console.log("you win"): console.log('you lose');
+                    console.log(emoji.length)
+                    console.log(matched.length)
+                    // console.log(matched);
+                }else{
+                    console.log('cover me please!');
+                    setTimeout(rmCurrent, 1000)
+                    
+                    // current[1].classList.remove('current')
+                    // current[0].classList.remove('current')
+                }
+                // console.log(matched);
             }else if(current.length >= 3){
                 newDiv.classList.remove('current')
             }
         })
-
+        
         
     }
-    const emojiClk = document.querySelectorAll('.grid-item');
-    // console.log(emojiClk);
     
 }   
 newGame();
