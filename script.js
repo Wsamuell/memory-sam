@@ -1,6 +1,7 @@
 const emoji = ['❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️', '❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️']
 
 const pointsEl = document.getElementById('pointsEl')
+const highScoreEl = document.getElementById('HighScoreEl')
 
 
 let points = 0;
@@ -41,12 +42,12 @@ const newGame = () => {
                     current[0].classList.add('match')
                     current[1].classList.add('match')
                     const matched = document.querySelector('.match')
+                    console.log(matched.length)
                     setTimeout(rmCurrent, 1000)
                     points += 7;
                     pointsEl.textContent = points
                     // matched.length === emoji.length ? console.log("you win"): console.log('you lose');
                     console.log(emoji.length)
-                    console.log(matched.length)
                     // console.log(matched);
                 }else{
                     console.log('cover me please!');
@@ -62,6 +63,8 @@ const newGame = () => {
         })
         
         
+        // const matched = document.querySelector('.match')
+        // console.log(matched);
     }
     
 }   
