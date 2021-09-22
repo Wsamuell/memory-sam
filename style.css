@@ -18,4 +18,33 @@ body {
     text-align: center;
     opacity: 0.8;
     padding: 10px;
+    font-size: 90px;
+}
+.current{
+    background-color:#FFADAD;
+    animation: stretch 1.5s ease-in-out 0s infinite alternate none;
+}
+.grid-item:hover{
+    opacity: 1;
+    cursor: wait;
+    transform: scale(1.03);
+}
+.match{
+    opacity: 0.1;
+}
+.match:hover{
+    opacity: 0.1;
+    transform: scale(1);
+    
+}
+@keyframes stretch {
+    0%{
+        transform: scale(1.03);
+    }
+    50%{
+        background-color: #FFFEB7;
+    }
+    100%{
+        transform: scale(1.07);
+    }
 }
