@@ -16,6 +16,9 @@
     <article class="head-disc">
         A Game Designed to help you grow!
     </article>
+    <article class="timer">
+       Time Left: 00
+    </article>
     <section>
         <article class="scores">
             <div>
@@ -23,7 +26,7 @@
                 <div id="pointsEl">0</div>
             </div>
             <div>   
-                <div>Reset</div>
+                <div class="start">Reset</div>
             </div>
             <div>
                 <div>HighScore</div>
@@ -31,12 +34,22 @@
             </div>
             
         </article>
-        <article class="grid-container">
-
-        </article>
-
-
+        <article class="grid-container"></article>
+        <div class="modal hidden">
+            <button class="close-modal">&times;</button>
+            <div>
+                <h1>☠️☠️   Game Over!!   ☠️☠️</h1>
+                <div>
+                    <div>Score</div>
+                    <div id="modalPointsEl">0</div>
+                </div>
+                <br>
+                <div class="start">Restart Game</div>
+            </div>
+          </div>
+      
     </section>
+    <div class="overlay hidden"></div>
     <footer>
         <div>
             Created by: <a href="https://github.com/Wsamuell" class="name" target="_blank"> Samuel O.</a>

@@ -1,11 +1,63 @@
-const emoji = ['❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️', '❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️']
+const emoji = ['🙈', '😭',, '🧚‍♂️', '🙈', '😭',, '🧚‍♂️']
 
-const pointsEl = document.getElementById('pointsEl')
-const highScoreEl = document.getElementById('HighScoreEl')
+const pointsEl = document.querySelector('#pointsEl');
+const modalPointsEl = document.querySelector('#modalPointsEl');
+const highScoreEl = document.getElementById('HighScoreEl');
+const startEL = document.querySelector('.start');
+const timerEL = document.querySelector('.timer');
+const btnCloseModal = document.querySelector('.close-modal');
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
 
 
+
+// const emoji = ['❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️', '❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️']
+
+let win = 0;
 let points = 0;
+let highScore = 0;
+let time = 10
 
+const closeModal = () => {
+    modal.classList.add('hidden')
+    overlay.classList.add('hidden')
+}
+const openModal = () => { 
+    modal.classList.remove('hidden')
+    overlay.classList.remove('hidden')
+
+    // overlay.classList.add
+}
+
+const checkHighScore = () => {
+    openModal()
+    console.log(points)
+    points += time
+    console.log(points)
+    modalPointsEl.textContent = points
+    pointsEl.textContent = points
+    clearInterval(countdown)
+    if(points > highScore) {
+        highScore = points
+        highScoreEl.textContent = highScore;
+    }else{
+        console.log('score didnt change')
+    }
+};
+const timer = () => {
+    time--
+    timerEL.textContent = `Time Left: ${time}`
+
+    if (time <= 0) {
+        clearInterval(countdown)
+        // modal.classList.remove('hidden')
+        openModal()
+        time = 1
+        // console.log(modal.classList.remove('hidden'));
+    }
+
+}
+const countdown = setInterval(timer, 1000)
 const shuffle = (array) => {
     let total = array.length
     let availableEmojis, currentEmoji
@@ -17,11 +69,11 @@ const shuffle = (array) => {
         array[currentEmoji] = availableEmojis
     };
     
-    return array
+    return array;
 }
-
-
 const newGame = () => {
+    countdown;
+    points = 0
     shuffle(emoji)
     for (let i=0; i < emoji.length; i++) {
         const newDiv = document.createElement('div');
@@ -34,21 +86,27 @@ const newGame = () => {
 
 
             if(current.length === 2) {
+
                 const rmCurrent = () => {
                     current[1].classList.remove('current')
                     current[0].classList.remove('current')
                 }
+
                 if(current[0].textContent === current[1].textContent) {
+                     win +=  2
                     current[0].classList.add('match')
                     current[1].classList.add('match')
-                    const matched = document.querySelector('.match')
-                    console.log(matched.length)
-                    setTimeout(rmCurrent, 1000)
+                    rmCurrent()
                     points += 7;
                     pointsEl.textContent = points
-                    // matched.length === emoji.length ? console.log("you win"): console.log('you lose');
-                    console.log(emoji.length)
+                    // const matched = document.querySelector('.match')
                     // console.log(matched);
+                    console.log( points);
+                    win === emoji.length ? checkHighScore(): console.log('not yet')
+                      ;
+
+                    // console.log()
+                    // console.log(highScore);
                 }else{
                     console.log('cover me please!');
                     setTimeout(rmCurrent, 1000)
@@ -56,17 +114,21 @@ const newGame = () => {
                     // current[1].classList.remove('current')
                     // current[0].classList.remove('current')
                 }
-                // console.log(matched);
+                
+
+
             }else if(current.length >= 3){
                 newDiv.classList.remove('current')
             }
         })
         
-        
-        // const matched = document.querySelector('.match')
-        // console.log(matched);
     }
+ 
+
     
 }   
+btnCloseModal.addEventListener('click',closeModal )
 newGame();
+// startEL.addEventListener('click', newGame)
+
 
