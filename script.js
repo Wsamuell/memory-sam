@@ -1,9 +1,10 @@
-const emoji = ['🙈', '😭',, '🧚‍♂️', '🙈', '😭',, '🧚‍♂️']
+const emojiDisplay = ['🙈', '😭',, '🧚‍♂️', '🙈', '😭',, '🧚‍♂️']
 
 const pointsEl = document.querySelector('#pointsEl');
 const modalPointsEl = document.querySelector('#modalPointsEl');
-const highScoreEl = document.getElementById('HighScoreEl');
+const highScoreEl = document.getElementById('highScoreEl');
 const startEL = document.querySelector('.start');
+const reStart = document.querySelector('.restart');
 const timerEL = document.querySelector('.timer');
 const btnCloseModal = document.querySelector('.close-modal');
 const modal = document.querySelector('.modal');
@@ -11,12 +12,13 @@ const overlay = document.querySelector('.overlay');
 
 
 
-// const emoji = ['❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️', '❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️']
+const emoji = ['❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️', '❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️']
 
 let win = 0;
 let points = 0;
 let highScore = 0;
-let time = 10
+let time;
+let countdown;
 
 const closeModal = () => {
     modal.classList.add('hidden')
@@ -25,39 +27,20 @@ const closeModal = () => {
 const openModal = () => { 
     modal.classList.remove('hidden')
     overlay.classList.remove('hidden')
-
-    // overlay.classList.add
 }
 
 const checkHighScore = () => {
     openModal()
-    console.log(points)
     points += time
-    console.log(points)
     modalPointsEl.textContent = points
     pointsEl.textContent = points
     clearInterval(countdown)
     if(points > highScore) {
         highScore = points
         highScoreEl.textContent = highScore;
-    }else{
-        console.log('score didnt change')
     }
 };
-const timer = () => {
-    time--
-    timerEL.textContent = `Time Left: ${time}`
 
-    if (time <= 0) {
-        clearInterval(countdown)
-        // modal.classList.remove('hidden')
-        openModal()
-        time = 1
-        // console.log(modal.classList.remove('hidden'));
-    }
-
-}
-const countdown = setInterval(timer, 1000)
 const shuffle = (array) => {
     let total = array.length
     let availableEmojis, currentEmoji
@@ -72,10 +55,20 @@ const shuffle = (array) => {
     return array;
 }
 const newGame = () => {
-    countdown;
-    points = 0
-    shuffle(emoji)
-    for (let i=0; i < emoji.length; i++) {
+        clearInterval(countdown);
+        time = 10
+        countdown = setInterval(() => {
+            time--
+        // console.log(time);
+        timerEL.textContent = `Time Left: ${time} seconds `
+    
+        if (time <= 0) {
+            checkHighScore()
+            clearInterval(countdown)
+            openModal()
+        }
+    }, 1000);
+        for (let i=0; i < emoji.length; i++) {
         const newDiv = document.createElement('div');
         newDiv.textContent = emoji[i]
         newDiv.setAttribute('class', 'grid-item');
@@ -101,22 +94,13 @@ const newGame = () => {
                     pointsEl.textContent = points
                     // const matched = document.querySelector('.match')
                     // console.log(matched);
-                    console.log( points);
-                    win === emoji.length ? checkHighScore(): console.log('not yet')
-                      ;
-
-                    // console.log()
-                    // console.log(highScore);
+                    // console.log( points);
+                    if(win === emoji.length ) checkHighScore();
                 }else{
                     console.log('cover me please!');
                     setTimeout(rmCurrent, 1000)
-                    
-                    // current[1].classList.remove('current')
-                    // current[0].classList.remove('current')
-                }
+                                    }
                 
-
-
             }else if(current.length >= 3){
                 newDiv.classList.remove('current')
             }
@@ -126,9 +110,22 @@ const newGame = () => {
  
 
     
-}   
+}
 btnCloseModal.addEventListener('click',closeModal )
-newGame();
-// startEL.addEventListener('click', newGame)
+const restart = () => {
+    const emojiGrid = document.querySelectorAll('.grid-item')
+    shuffle(emoji)
+    for (let i = 0; i < emojiGrid.length; i++) {
+        emojiGrid[i].remove()
+    }
+    closeModal()
+    win = 0;
+    points = 0;
+    pointsEl.textContent = points;
+    newGame();
+}
+// restart();
+startEL.addEventListener('click', restart);
+reStart.addEventListener('click', restart);
 
 

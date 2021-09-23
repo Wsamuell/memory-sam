@@ -41,7 +41,7 @@ body {
     opacity: 0.8;
     padding: 10px;
     font-size: 90px;
-    /* color: transparent; */
+    color: transparent;
 }
 .current{
     background-color:#FFADAD;
@@ -65,8 +65,12 @@ body {
     pointer-events: none;
     
 }
-.start {
+.start, .restart {
     cursor: pointer;
+}
+.start:hover, .restart:hover {
+    color: black;
+    transform: scale(1.5);
 }
 .name{
     font-family: 'Sacramento', cursive;
@@ -122,6 +126,7 @@ footer{
     cursor: pointer;
     border: none;
     background: none;
+    display: none;
   }
 .hidden{
     display: none;
@@ -148,7 +153,11 @@ footer{
     margin-top: 100px;
 
 }
-
+@media (min-width: 1819px) {
+    .modal {
+        font-size: 3rem;
+    }
+}
 @media (max-width: 1176px) {
     .modal {
         font-size: 3rem;
@@ -159,12 +168,12 @@ footer{
         font-size: 2rem;
     }
 }
+
 @media (max-width: 776px) {
     .modal {
         font-size:1.5rem;
     }
 }
-
 @media (max-width: 624px) {
     .grid-container{
 
