@@ -133,8 +133,6 @@ const restart = () => {
     pointsEl.textContent = points;
     newGame();
 }
-startEL.addEventListener('click', restart);
-reStart.addEventListener('click', restart);
 
 shuffle(emojiDisplay);
 for (let i=0; i < emojiDisplay.length; i++) {
@@ -144,3 +142,5 @@ for (let i=0; i < emojiDisplay.length; i++) {
     newDiv.classList.add('temp-item');
     document.querySelector('.grid-container').appendChild(newDiv);
 }
+    startEL.addEventListener('click', restart);
+    reStart.addEventListener('click', restart);
