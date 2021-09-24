@@ -1,4 +1,4 @@
-const emojiDisplay = ['🙈', '😭',, '🧚‍♂️', '🙈', '😭',, '🧚‍♂️']
+const emojiDisplay = ['🙈', '😭', '🧚‍♂️', '🙈', '😭', '💀', '💀', '🧚‍♂️', '🤖', '🤖']
 
 const pointsEl = document.querySelector('#pointsEl');
 const modalPointsEl = document.querySelector('#modalPointsEl');
@@ -9,7 +9,7 @@ const timerEL = document.querySelector('.timer');
 const btnCloseModal = document.querySelector('.close-modal');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
-
+const body = document.body.style
 
 
 const emoji = ['❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️', '❤️', '🙈', '😭', '🎶', '🤯', '👿', '💀', '👽', '👾', '🤖', '🎃', '🦾', '🧛🏿', '🧞', '🧚‍♂️']
@@ -23,10 +23,14 @@ let countdown;
 const closeModal = () => {
     modal.classList.add('hidden')
     overlay.classList.add('hidden')
+    body.overflow = 'auto'
+
 }
 const openModal = () => { 
     modal.classList.remove('hidden')
     overlay.classList.remove('hidden')
+    body.overflow = 'hidden'
+    
 }
 
 const checkHighScore = () => {
@@ -56,16 +60,17 @@ const shuffle = (array) => {
 }
 const newGame = () => {
         clearInterval(countdown);
-        time = 10
+        time = 201
         countdown = setInterval(() => {
             time--
         // console.log(time);
         timerEL.textContent = `Time Left: ${time} seconds `
     
         if (time <= 0) {
-            checkHighScore()
-            clearInterval(countdown)
-            openModal()
+            checkHighScore();
+            clearInterval(countdown);
+            window.scroll(top);
+            openModal();
         }
     }, 1000);
         for (let i=0; i < emoji.length; i++) {
@@ -95,9 +100,13 @@ const newGame = () => {
                     // const matched = document.querySelector('.match')
                     // console.log(matched);
                     // console.log( points);
-                    if(win === emoji.length ) checkHighScore();
+                    if(win === emoji.length ) {
+                        checkHighScore();
+                        window.scroll(top);
+                        openModal();
+            
+                    };
                 }else{
-                    console.log('cover me please!');
                     setTimeout(rmCurrent, 1000)
                                     }
                 
@@ -124,8 +133,14 @@ const restart = () => {
     pointsEl.textContent = points;
     newGame();
 }
-// restart();
 startEL.addEventListener('click', restart);
 reStart.addEventListener('click', restart);
 
-
+shuffle(emojiDisplay);
+for (let i=0; i < emojiDisplay.length; i++) {
+    const newDiv = document.createElement('div');
+    newDiv.textContent = emojiDisplay[i]
+    newDiv.setAttribute('class', 'grid-item');
+    newDiv.classList.add('temp-item');
+    document.querySelector('.grid-container').appendChild(newDiv);
+}
